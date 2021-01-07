@@ -96,7 +96,6 @@
     methods: {
       onKeyUp (event) {
         if (this.isSelectorFocused()) {
-          console.log('key up', event.keyCode)
           if (event.keyCode === 33 || event.keyCode === 38) { // page up || up arrow
             this.selectUp()
             event.preventDefault()
@@ -126,7 +125,6 @@
           } else {
             this.selectUp()
           }
-          event.preventDefault()
         }
       },
       onRollStart (event) {
@@ -158,7 +156,15 @@
         if (event.srcElement.parentElement === this.$refs.rollerPicker && this.startScrollY) {
           //scroll position stored on move, now just need to re-init initial scroll position
           this.startScrollY = 0
-          //TODO find nearest option
+          let nearestIndex = Math.round(this.offsetY / this.lineHeightPx) * -1
+          if(this.jumpTopBottom) {
+            if(nearestIndex < 0) nearestIndex = -1
+            if(nearestIndex >= this.options.length) nearestIndex = 0
+          } else {
+            if(nearestIndex < 0) nearestIndex = 0
+            if(nearestIndex >= this.options.length) nearestIndex = -1
+          }
+          this.selectIndex(nearestIndex)
           event.preventDefault()
         }
       },
@@ -177,7 +183,7 @@
         if (this.disabled) return
         if(index === -1) index = this.options.length - 1
         // if not found, go back to first
-        console.log('select index', index)
+//        console.log('select index', index)
         if(typeof this.options[index] === 'undefined') index = 0
         this.pickedIndex = index
         this.pickedValue = this.getOptionValue(index)
@@ -250,7 +256,7 @@
       pickedIndex: {
         handler: function (newVal, oldVal) {
           this.offsetY = this.lineHeightPx * newVal * -1
-          console.log('picked index change', oldVal, newVal)
+//          console.log('picked index change', oldVal, newVal)
         }
       }
     },
