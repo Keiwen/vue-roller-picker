@@ -7,7 +7,7 @@
             <div class="playWith">
                 <h2>Play with it</h2>
 
-                <roller-picker :options="['Apple', 'Banana', 'Kiwi', 'Orange', 'Pear', 'Pineapple', 'Strawberry']"
+                <roller-picker :options="['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Kiwi', 'Lemon', 'Orange', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Strawberry']"
                            :line-height-px="parseInt(rp_line_height)"
                            :font-size="rp_fontsize"
                            :disabled="rp_disabled"
