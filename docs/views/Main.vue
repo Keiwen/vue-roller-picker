@@ -14,7 +14,7 @@
                            :big-roller="rp_big"
                            :jump-top-bottom="rp_jump"
                            v-model="rp_value">
-                    <template v-slot:optionNotFoundt="slotProps">
+                    <template v-slot:optionNotFound="slotProps">
                         <div style="background-color: darkcyan;">
                             Index {{slotProps.index}}
                         </div>
