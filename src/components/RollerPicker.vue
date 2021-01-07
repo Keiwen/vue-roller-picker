@@ -10,7 +10,7 @@
                 'cursor': startScrollY > 0 ? 'grabbing' : 'grab'
         }">
         <div class="pick-selector">
-            <div v-for="(option, i) in options" :key="'option-' + i" class="pick-option">
+            <div v-for="(option, i) in options" :key="'option-' + i" class="pick-option" :class="(i === pickedIndex) ? 'pick-option-active' : ''">
                 <slot name="option" :option="option" :index="i">
                     <div>{{getOptionLabel(i)}}</div>
                 </slot>
@@ -25,7 +25,6 @@
 
 <script>
   export default {
-    //TODO active option
     //TODO "infinite" roll
 
     name: 'RollerPicker',
