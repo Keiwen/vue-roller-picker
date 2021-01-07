@@ -45,6 +45,10 @@
         default: false,
         type: Boolean
       },
+      jumpTopBottom: {
+        default: false,
+        type: Boolean
+      },
       lineHeightPx: {
         default: 40,
         type: Number
@@ -126,6 +130,7 @@
         }
       },
       onRollStart (event) {
+        if (this.disabled) return
         //only if element is under roller picker
         if (event.srcElement.parentElement === this.$refs.rollerPicker) {
           //store Y initial position when starting scroll
@@ -137,6 +142,7 @@
         }
       },
       onRollMove (event) {
+        if (this.disabled) return
         //only if element is under roller picker & if we start scrolling
         if (event.srcElement.parentElement === this.$refs.rollerPicker && this.startScrollY) {
           const newScrollY = event.clientY ? event.clientY : event.changedTouches[0].clientY
@@ -148,6 +154,7 @@
         }
       },
       onRollEnd (event) {
+        if (this.disabled) return
         if (event.srcElement.parentElement === this.$refs.rollerPicker && this.startScrollY) {
           //scroll position stored on move, now just need to re-init initial scroll position
           this.startScrollY = 0
@@ -180,14 +187,32 @@
       selectDown(iteration) {
         if(typeof iteration === 'undefined') iteration = 1
         // go down is next in the list
-//        this.offsetY -= this.lineHeightPx
-        this.selectIndex(this.pickedIndex + iteration)
+        let newIndex = this.pickedIndex + iteration
+        if (newIndex >= this.options.length) {
+          if(this.jumpTopBottom) {
+            while(newIndex >= this.options.length) {
+              newIndex -= this.options.length
+            }
+          } else {
+            newIndex = -1
+          }
+        }
+        this.selectIndex(newIndex)
       },
       selectUp(iteration) {
         if(typeof iteration === 'undefined') iteration = 1
         // go up is previous in the list
-//        this.offsetY += this.lineHeightPx
-        this.selectIndex(this.pickedIndex - iteration)
+        let newIndex = this.pickedIndex - iteration
+        if (newIndex < 0) {
+          if(this.jumpTopBottom) {
+            while(newIndex < 0) {
+              newIndex += this.options.length
+            }
+          } else {
+            newIndex = 0
+          }
+        }
+        this.selectIndex(newIndex)
       },
       getOptionValue(index) {
         const optionType = typeof this.options[index]
