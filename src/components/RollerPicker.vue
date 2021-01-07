@@ -286,9 +286,11 @@
         width: 100%;
         margin-top: calc(var(--overlayHeight) + var(--offsetY));
         transition: margin-top 0.3s;
+        /*
         &.rolling {
             animation: rolling 2s linear infinite;
         }
+        */
     }
     .pick-option {
         font-size: var(--fontSize);
@@ -334,9 +336,8 @@
         top: 0;
     }
 
-
+/*
     @keyframes rolling {
-        /*TODO to be reviewed*/
         99% {
             transform: translateY(-100%);
         }
@@ -344,4 +345,5 @@
             transform: translateY(0);
         }
     }
+    */
 </style>
