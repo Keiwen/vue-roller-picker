@@ -8,9 +8,13 @@
                 <h2>Play with it</h2>
 
                 <roller-picker :options="['Apple', 'Banana', 'Kiwi', 'Orange', 'Pear', 'Pineapple', 'Strawberry']"
+                           :line-height-px="parseInt(rp_line_height)"
+                           :font-size="rp_fontsize"
                            :disabled="rp_disabled"
+                           :big-roller="rp_big"
+                           :jump-top-bottom="rp_jump"
                            v-model="rp_value">
-                    <template v-slot:optionNotExist="slotProps">
+                    <template v-slot:optionNotFoundt="slotProps">
                         <div style="background-color: darkcyan;">
                             Index {{slotProps.index}}
                         </div>
@@ -22,8 +26,26 @@
                 <label for="rp_value">Value:</label>
                 <input type="text" v-model="rp_value" id="rp_value"/>
 
+                <br/>
+
+                <label for="rp_line_height">Line height (px):</label>
+                <input type="number" v-model="rp_line_height" id="rp_line_height"/>
+
+                <label for="rp_fontsize">Font size:</label>
+                <input type="text" v-model="rp_fontsize" id="rp_fontsize" size="7"/>
+
+                <br/>
+
+                <label for="rp_big">Big roller:</label>
+                <input type="checkbox" v-model="rp_big" id="rp_big"/>
+
                 <label for="rp_disabled">Disabled:</label>
                 <input type="checkbox" v-model="rp_disabled" id="rp_disabled"/>
+
+                <br/>
+
+                <label for="rp_jump">Allow jump top-bottom:</label>
+                <input type="checkbox" v-model="rp_jump" id="rp_jump"/>
 
             </div>
 
@@ -47,7 +69,11 @@
     data () {
       return {
         rp_value: 'Kiwi',
-        rp_disabled: false
+        rp_line_height: '40',
+        rp_fontsize: '28px',
+        rp_disabled: false,
+        rp_big: false,
+        rp_jump: false
       }
     }
   }
@@ -73,5 +99,6 @@
         float: right;
         width: 30%;
     }
+
 
 </style>
