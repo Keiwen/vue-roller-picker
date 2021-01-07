@@ -1,5 +1,5 @@
 <template>
-    <div class="roller-picker-container" ref="rollerPicker" tabindex="0"
+    <div class="roller-picker-container" ref="rollerPicker" tabindex="0" role="spinbutton"
          :style="{
                 '--lineHeight': lineHeightPx + 'px',
                 '--rollerHeight': lineHeightPx * (bigRoller ? 5 : 3) + 'px',
@@ -25,7 +25,6 @@
 
 <script>
   export default {
-    //TODO "infinite" roll
 
     name: 'RollerPicker',
     props: {
@@ -85,12 +84,6 @@
       window.addEventListener('mousemove', this.onRollMove)
       window.addEventListener('mouseup', this.onRollEnd)
       window.addEventListener('mouseout', this.onRollCancel)
-    },
-    computed: {
-      lineHeightValue () {
-        //TODO unused
-        return 2
-      }
     },
     methods: {
       onKeyUp (event) {
@@ -187,6 +180,7 @@
         this.pickedIndex = index
         this.pickedValue = this.getOptionValue(index)
         this.pickedLabel = this.getOptionLabel(index)
+        this.offsetY = this.lineHeightPx * index * -1
         this.$emit('input', this.pickedValue)
       },
       selectDown(iteration) {
@@ -250,12 +244,6 @@
           this.pickedLabel = this.getOptionLabel(this.pickedIndex)
           //picked index is -1 if not found, force to 0
           if(this.pickedIndex < 0) this.pickedIndex = 0
-        }
-      },
-      pickedIndex: {
-        handler: function (newVal, oldVal) {
-          this.offsetY = this.lineHeightPx * newVal * -1
-//          console.log('picked index change', oldVal, newVal)
         }
       }
     },
