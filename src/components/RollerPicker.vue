@@ -20,6 +20,7 @@
         <div class="overlay overlay-middle"></div>
         <div class="overlay overlay-bottom"></div>
         <div class="overlay-global"></div>
+        <input type="hidden" :name="formName" :value="getOptionFormValue(pickedIndex)" />
     </div>
 </template>
 
@@ -178,7 +179,7 @@
 //        console.log('select index', index)
         if(typeof this.options[index] === 'undefined') index = 0
         this.pickedIndex = index
-        this.pickedValue = this.getOptionValue(index)
+        this.pickedValue = this.options[index]
         this.pickedLabel = this.getOptionLabel(index)
         this.offsetY = this.lineHeightPx * index * -1
         this.$emit('input', this.pickedValue)
@@ -213,15 +214,14 @@
         }
         this.selectIndex(newIndex)
       },
-      getOptionValue(index) {
+      getOptionFormValue(index) {
         const optionType = typeof this.options[index]
         if(optionType === 'string') {
           return this.options[index]
-        } else if (optionType === 'object' && typeof this.options[index]['value'] !== 'undefined') {
-          return this.options[index]['value']
+        } else if (optionType === 'object' && typeof this.options[index]['formValue'] !== 'undefined') {
+          return this.options[index]['formValue']
         } else {
-          console.log('Value not found in option ' + index + ' (type ' + optionType + ')')
-          return {}
+          return ''
         }
       },
       getOptionLabel(index) {
@@ -232,7 +232,7 @@
           return this.options[index]['label']
         } else {
           console.log('Label not found in option ' + index + ' (type ' + optionType + ')')
-          return {}
+          return ''
         }
       }
     },
