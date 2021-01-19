@@ -216,7 +216,7 @@
       },
       reloadValue() {
         this.pickedValue = this.value
-        this.pickedIndex = this.receivedOptions.indexOf(this.pickedValue)
+        this.pickedIndex = this.options.indexOf(this.pickedValue)
         this.pickedLabel = this.getOptionLabel(this.pickedIndex)
         //picked index is -1 if not found, force to 0
         if(this.pickedIndex < 0) this.pickedIndex = 0
