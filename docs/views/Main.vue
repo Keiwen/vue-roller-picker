@@ -7,16 +7,18 @@
             <div class="playWith">
                 <h2>Play with it</h2>
 
-                <roller-picker :options="['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Kiwi', 'Lemon', 'Orange', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Strawberry']"
+                <roller-picker :options="options_list"
                            :line-height-px="parseInt(rp_line_height)"
                            :font-size="rp_fontsize"
                            :disabled="rp_disabled"
                            :big-roller="rp_big"
                            :jump-top-bottom="rp_jump"
+                           :infinite="rp_infinite"
+                           :animated="rp_animated"
                            v-model="rp_value">
                     <template v-slot:optionNotFound="slotProps">
                         <div style="background-color: darkcyan;">
-                            Index {{slotProps.index}}
+                            Index {{slotProps.index}} {{slotProps.option.name}}
                         </div>
                     </template>
                 </roller-picker>
@@ -42,10 +44,16 @@
                 <label for="rp_disabled">Disabled:</label>
                 <input type="checkbox" v-model="rp_disabled" id="rp_disabled"/>
 
+                <label for="rp_animated">Animated:</label>
+                <input type="checkbox" v-model="rp_animated" id="rp_animated"/>
+
                 <br/>
 
                 <label for="rp_jump">Allow jump top-bottom:</label>
                 <input type="checkbox" v-model="rp_jump" id="rp_jump"/>
+
+                <label for="rp_infinite">Infinite scroll:</label>
+                <input type="checkbox" v-model="rp_infinite" id="rp_infinite"/>
 
             </div>
 
@@ -68,12 +76,17 @@
     components: { RollerPicker },
     data () {
       return {
+        options_list: ['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Kiwi', 'Lemon', 'Orange', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Strawberry'],
+        options_short: ['Apple', 'Kiwi', 'Strawberry'],
+        options_objects: [{'name': 'Apple', 'formValue': 'ap'}, {'name': 'Kiwi', 'formValue': 'ki'}, {'name': 'Peach', 'formValue': 'pe'}],
         rp_value: 'Kiwi',
         rp_line_height: '40',
         rp_fontsize: '28px',
         rp_disabled: false,
         rp_big: false,
-        rp_jump: false
+        rp_jump: false,
+        rp_infinite: false,
+        rp_animated: true
       }
     }
   }
