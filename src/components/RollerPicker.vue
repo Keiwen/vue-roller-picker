@@ -9,7 +9,7 @@
                 '--offsetY': offsetY + 'px',
                 'cursor': startScrollY > 0 ? 'grabbing' : 'grab'
         }">
-        <div class="pick-selector" :class="{'animated': fakeOptionMoving === 0 && animated}">
+        <div class="pick-selector" :class="{'animated': fakeOptionMoving === 0 && animated}" v-if="this.options.length">
             <div v-for="(option, i) in rollerOptions" :key="'option-' + i" class="pick-option" :class="(option === pickedValue) ? 'pick-option-active' : ''">
                 <slot name="option" :option="option" :index="recenterIndex(i - fakeIndexOffset)">
                     <div>{{getOptionLabel(option)}}</div>
@@ -192,7 +192,7 @@
         return document.activeElement === this.$refs.rollerPicker
       },
       selectIndex(index) {
-        if (this.disabled) return
+        if (this.disabled || !this.options.length) return
         if (this.infinite) {
           this.offsetY = this.lineHeightPx * (index + this.fakeIndexOffset) * -1
           //roll first, then reload options
@@ -245,6 +245,7 @@
         this.offsetY = this.lineHeightPx * this.pickedIndex * -1
       },
       reloadOptions() {
+        if(!this.options.length) throw 'Roller-picker: no option defined. Prop \'options\' is missing or empty'
         if (this.infinite) {
           // generate fake options around the picked value
           const fakeElementCount = 15
