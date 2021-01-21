@@ -17,11 +17,17 @@ CSS can be overloaded to personnalize the roller, for example:
 - middle overlay: around the picked value, class 'overlay overlay-middle'
 - top and bottom overlays: above or under picked value, class 'overlay overlay-top' or 'overlay overlay-bottom'
 - selected option: corresponding div element have class 'pick-option-active' 
+- rolling end class: set another classname with prop and defined it with desired animation
 
 Roller picker provide a 'option' slot which can be used to display option as needed.
 Slot props are 'index' and 'option' (see sample in component section)
 
 Note on 'infinite' spin: animation may not be always smooth
+
+Sample use of rolling (slot machine style):
+- start rolling (rolling property true)
+- set value (random among options list)
+- stop rolling (rolling property false)
 
 ## Global use
 - npm install
@@ -54,6 +60,8 @@ export default {
            :big-roller="rp_big"
            :jump-top-bottom="rp_jump"
            :infinite="rp_infinite"
+           :rolling="rp_rolling"
+           :rolling-end-class="rp_rolling_end_class"
            :animated="rp_animated"
            v-model="rp_value">
     <template v-slot:option="slotProps">
@@ -70,6 +78,8 @@ export default {
 | `disabled` | `Boolean` | Disabled roller move and other option selection. Default is false |
 | `animated` | `Boolean` | Add CSS transition when moving in roller. Default is true |
 | `infinite` | `Boolean` | Allow 'infinite' roll: first options are displayed after last ones and last ones also displayed before first ones. Default is false |
+| `rolling` | `Boolean` | Only if infinite is on. True will start rolling animation, false will switch to rolling end animation. Default is false (if no change, no animation set) |
+| `rollingEndClass` | `String` | Css class given to selector when rolling ends. Default is 'rollend' |
 | `bigRoller` | `Boolean` | Switch to bigger roller with 5 visible options. Default is false (3 visible options) |
 | `jumpTopBottom` | `Boolean` | Allow to jump bottom when moving above top, and vice-versa. Default is false |
 | `lineHeightPx` | `Number` | Height of each option (integer, in px). Default is 40 |
