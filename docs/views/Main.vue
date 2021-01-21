@@ -64,6 +64,9 @@
                     <option value="short">Short</option>
                 </select>
 
+                <br/><br/>
+                <button @click="randomize()">Random pick</button>
+
             </div>
 
             <div class="gallery">
@@ -106,6 +109,11 @@
           case 'short': return this.options_short
           default: return []
         }
+      }
+    },
+    methods: {
+      randomize () {
+        this.rp_value = this.rp_option_list[Math.floor(Math.random() * this.rp_option_list.length)]
       }
     }
   }
