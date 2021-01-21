@@ -7,11 +7,21 @@ Roll-designed selector
 [Live demo here](https://keiwen.github.io/vue-roller-picker/)
 
 Roller can be moved:
-- if focused, with `up`/`down` arrows or `page up/down` to move up and down, `home`/`end` to jump top and bottom
+- if focused, with `up`/`down` arrows or `page up/down` to move up and down,
+`home`/`end` to jump top and bottom
+(cannot be focused by direct click on it, but with tab)
 - with mouse wheel
 - with mouse grab or touch move
 
-In progress: allow 'infinite' spin
+CSS can be overloaded to personnalize the roller, for example:
+- middle overlay: around the picked value, class 'overlay overlay-middle'
+- top and bottom overlays: above or under picked value, class 'overlay overlay-top' or 'overlay overlay-bottom'
+- selected option: corresponding div element have class 'pick-option-active' 
+
+Roller picker provide a 'option' slot which can be used to display option as needed.
+Slot props are 'index' and 'option' (see sample in component section)
+
+Note on 'infinite' spin: animation may not be always smooth
 
 ## Global use
 - npm install
@@ -34,7 +44,7 @@ export default {
 ## Components
 ### Roller picker
 ```
-<roller-picker></roller-picker>
+<roller-picker :options=['a', 'b']></roller-picker>
 ```
 ```
 <roller-picker :options="['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Kiwi', 'Lemon', 'Orange', 'Peach', 'Pear', 'Pineapple', 'Raspberry', 'Strawberry']"
@@ -43,6 +53,8 @@ export default {
            :disabled="rp_disabled"
            :big-roller="rp_big"
            :jump-top-bottom="rp_jump"
+           :infinite="rp_infinite"
+           :animated="rp_animated"
            v-model="rp_value">
     <template v-slot:option="slotProps">
         <div style="background-color: darkcyan;">
@@ -54,14 +66,20 @@ export default {
 
 | Prop | Type | Note
 | :--- | :--- | ---: |
-| `options` | `array` | array of available options. Each options is expected as string or object (then attribute `formValue` is used for input value)  |
+| `options` | `array` | REQUIRED. Array of available options. Each options is expected as string or object  |
 | `disabled` | `Boolean` | Disabled roller move and other option selection. Default is false |
+| `animated` | `Boolean` | Add CSS transition when moving in roller. Default is true |
+| `infinite` | `Boolean` | Allow 'infinite' roll: first options are displayed after last ones and last ones also displayed before first ones. Default is false |
 | `bigRoller` | `Boolean` | Switch to bigger roller with 5 visible options. Default is false (3 visible options) |
 | `jumpTopBottom` | `Boolean` | Allow to jump bottom when moving above top, and vice-versa. Default is false |
 | `lineHeightPx` | `Number` | Height of each option (integer, in px). Default is 40 |
 | `fontSize` | `String` | Font-size of options labels. Default is '28px' |
 | `formName` | `string` | Set the 'name' attribute of the form input. Default is 'rollerPicker' |
 
+Notes about options:
+- Options property must be an filled array
+- Component display a label for each options (if slot not overloaded). Label equal option value (if option is string) or `label` field (if option is object and field exist).
+- Component use an input hidden tag. Value attribute is filled with option value (if option is string) or `formValue` field (if option is object and field exist).
 
 Events:
 - 'input' on value change, returning picked option
