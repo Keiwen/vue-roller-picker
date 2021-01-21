@@ -9,7 +9,7 @@
                 '--offsetY': offsetY + 'px',
                 'cursor': startScrollY > 0 ? 'grabbing' : 'grab'
         }">
-        <div class="pick-selector" :class="{'animated': fakeOptionMoving === 0 && animated}" v-if="this.options.length">
+        <div class="pick-selector" :class="pickSelectorCssClasses" v-if="this.options.length">
             <div v-for="(option, i) in rollerOptions" :key="'option-' + i" class="pick-option" :class="(option === pickedValue) ? 'pick-option-active' : ''">
                 <slot name="option" :option="option" :index="recenterIndex(i - fakeIndexOffset)">
                     <div>{{getOptionLabel(option)}}</div>
@@ -65,6 +65,14 @@
         default: true,
         type: Boolean
       },
+      rolling: {
+        default: false,
+        type: Boolean
+      },
+      rollingEndClass: {
+        default: 'rollend',
+        type: String
+      },
       formName: {
         default: 'rollerPicker',
         type: String
@@ -82,6 +90,7 @@
         rollerOptions: [],
         fakeIndexOffset: 0,
         fakeOptionMoving: 0,
+        rollingClass: '',
         ignoreNextValueChange: false
       }
     },
@@ -102,6 +111,11 @@
     computed: {
       linkTopBottom () {
         return this.jumpTopBottom || this.infinite
+      },
+      pickSelectorCssClasses () {
+        let cssClasses = [this.rollingClass]
+        if (this.fakeOptionMoving === 0 && this.animated) cssClasses.push('animated')
+        return cssClasses
       }
     },
     methods: {
@@ -322,6 +336,18 @@
           this.reloadValue()
           this.reloadOptions()
         }
+      },
+      rolling: {
+        handler: function (newVal, oldVal) {
+          if (!this.infinite) return
+          if (newVal) {
+            //start roll
+            this.rollingClass = 'rolling'
+          } else {
+            //end roll
+            this.rollingClass = this.rollingEndClass
+          }
+        }
       }
     },
     created () {
@@ -346,11 +372,12 @@
     .pick-selector {
         width: 100%;
         margin-top: calc(var(--overlayHeight) + var(--offsetY));
-        /*
         &.rolling {
-            animation: rolling 2s linear infinite;
+            animation: rolling 0.8s linear infinite;
         }
-        */
+        &.rollend {
+            animation: rollend 1.5s cubic-bezier(.2,.7,.6,1.3);
+        }
         &.animated {
             transition: margin-top 0.3s;
         }
@@ -399,14 +426,21 @@
         top: 0;
     }
 
-/*
     @keyframes rolling {
-        99% {
-            transform: translateY(-100%);
+        1% {
+            transform: translateY(80%);
+        }
+        100% {
+            transform: translateY(-80%);
+        }
+    }
+
+    @keyframes rollend {
+        1% {
+            transform: translateY(80%);
         }
         100% {
             transform: translateY(0);
         }
     }
-    */
 </style>

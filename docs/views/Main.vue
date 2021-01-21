@@ -15,6 +15,7 @@
                            :jump-top-bottom="rp_jump"
                            :infinite="rp_infinite"
                            :animated="rp_animated"
+                           :rolling="rp_rolling"
                            v-model="rp_value">
                     <template v-slot:optionNotFound="slotProps">
                         <div style="background-color: darkcyan;">
@@ -54,6 +55,11 @@
 
                 <label for="rp_infinite">Infinite scroll:</label>
                 <input type="checkbox" v-model="rp_infinite" id="rp_infinite"/>
+
+                <br/>
+
+                <label for="rp_rolling">Rolling (if infinite):</label>
+                <input type="checkbox" v-model="rp_rolling" id="rp_rolling"/>
 
                 <br/>
                 <hr/>
@@ -99,6 +105,7 @@
         rp_jump: false,
         rp_infinite: false,
         rp_animated: true,
+        rp_rolling: false,
         rp_list: 'long'
       }
     },
