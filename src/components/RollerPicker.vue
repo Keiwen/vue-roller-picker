@@ -34,7 +34,8 @@
       },
       options: {
         default: [],
-        type: Array
+        type: Array,
+        required: true
       },
       disabled: {
         default: false,
