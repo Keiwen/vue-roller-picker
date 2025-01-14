@@ -10,4 +10,3 @@ export default install
 
 // Named export for specific usage
 export { install, RollerPicker }
-
