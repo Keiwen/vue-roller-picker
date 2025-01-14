@@ -13,6 +13,7 @@ const props = defineProps({
   rolling: { type: Boolean, default: false },
   rollingEndClass: { type: String, default: 'rollend' },
   formName: { type: String, default: 'rollerPicker' },
+  rollAnimationOnUpdate: { type: Number, default: 0 },
   disabled: { type: Boolean, default: false }
 })
 
@@ -64,8 +65,14 @@ watch(() => props.modelValue, (newValue, oldValue) => {
     // does not update if selectIndex method is causing this change
     ignoreNextValueChange.value = false
   } else {
+    if (props.infinite && props.rollAnimationOnUpdate > 0) {
+      startRoll()
+    }
     reloadValue()
     reloadOptions()
+    if (props.infinite && props.rollAnimationOnUpdate > 0) {
+      setTimeout(() => { endRoll() }, props.rollAnimationOnUpdate)
+    }
   }
 })
 watch(() => props.options, (newValue, oldValue) => {

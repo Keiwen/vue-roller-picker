@@ -6,7 +6,7 @@ const optionsList = ref(['Apple', 'Apricot', 'Banana', 'Blueberry', 'Cherry', 'G
 const optionsShort = ref(['Cat', 'Dog', 'Mouse'])
 const optionsObjects = ref([{ label: 'Red', formValue: 'r' }, { label: 'Blue', formValue: 'b' }, { label: 'Yellow', formValue: 'y' }])
 const rpValue = ref('Kiwi')
-const rpLineHeight = ref('40')
+const rpLineHeight = ref(40)
 const rpFontsize = ref('28px')
 const rpDisabled = ref(false)
 const rpBig = ref(false)
@@ -15,6 +15,7 @@ const rpInfinite = ref(false)
 const rpAnimated = ref(true)
 const rpRolling = ref(false)
 const rpList = ref('long')
+const rpRollAnimation = ref(0)
 
 const rpOptionList = computed(() => {
   switch (rpList.value) {
@@ -41,7 +42,7 @@ const randomize = () => {
         <h2>Play with it</h2>
 
         <roller-picker :options="rpOptionList"
-                       :line-height-px="parseInt(rpLineHeight)"
+                       :line-height-px="rpLineHeight"
                        :font-size="rpFontsize"
                        :disabled="rpDisabled"
                        :big-roller="rpBig"
@@ -49,10 +50,11 @@ const randomize = () => {
                        :infinite="rpInfinite"
                        :animated="rpAnimated"
                        :rolling="rpRolling"
+                       :roll-animation-on-update="rpRollAnimation"
                        v-model="rpValue">
           <template v-slot:optionNotFound="slotProps">
             <div style="background-color: darkcyan;">
-              Index {{slotProps.index}} {{slotProps.option.name}}
+              Index {{slotProps.index}} {{slotProps.option.label}}
             </div>
           </template>
         </roller-picker>
@@ -91,8 +93,14 @@ const randomize = () => {
 
         <br/>
 
-        <label for="rpRolling">Rolling (if infinite):</label>
+        If infinite:
+        <br/>
+
+        <label for="rpRolling">Rolling:</label>
         <input type="checkbox" v-model="rpRolling" id="rpRolling"/>
+
+        <label for="rpRollAnimation">Animation time when changing model (ms):</label>
+        <input type="number" v-model="rpRollAnimation" id="rpRollAnimation" size="7"/>
 
         <br/>
         <hr/>
