@@ -271,7 +271,7 @@ const reloadOptions = () => {
 }
 const getOptionFormValue = (option) => {
   const optionType = typeof option
-  if (optionType === 'string') {
+  if (optionType === 'string' || optionType === 'number') {
     return option
   } else if (optionType === 'object' && typeof option.formValue !== 'undefined') {
     return option.formValue
@@ -281,7 +281,7 @@ const getOptionFormValue = (option) => {
 }
 const getOptionLabel = (option) => {
   const optionType = typeof option
-  if (optionType === 'string') {
+  if (optionType === 'string' || optionType === 'number') {
     return option
   } else if (optionType === 'object' && typeof option.label !== 'undefined') {
     return option.label
