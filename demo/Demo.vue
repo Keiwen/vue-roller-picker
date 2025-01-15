@@ -120,6 +120,25 @@ const randomize = () => {
       <div class="gallery">
         <h2>Gallery</h2>
 
+        <div class="date-picker">
+          <roller-picker :options="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']">
+          </roller-picker>
+          <roller-picker :options="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]">
+          </roller-picker>
+        </div>
+
+        <br/>
+
+        <roller-picker :options="['Africa', 'America', 'Asia', 'Europe', 'Oceania']"
+                       class="demo-continent"
+                       :big-roller="true" :infinite="true">
+        </roller-picker>
+
+        <roller-picker :options="['Arthur', 'Bruce', 'Chris', 'Gary', 'Jack', 'John', 'Mark', 'Michael', 'Paul', 'Peter', 'Simon', 'Vincent']"
+                       class="demo-firstname"
+                       :infinite="true" :rolling="true">
+        </roller-picker>
+
       </div>
 
     </fieldset>
@@ -127,7 +146,7 @@ const randomize = () => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 h1 {
   margin-top: 0;
   margin-bottom: 0;
@@ -145,6 +164,37 @@ h1 {
 .gallery {
   float: right;
   width: 30%;
+}
+
+.date-picker {
+  > div {
+    display: inline-block;
+    width: 45%;
+    &:last-child {
+      float: right;
+    }
+  }
+}
+
+.demo-continent {
+  .pick-option {
+    background-color: darkred;
+    font-weight: bold;
+    font-size: x-large;
+  }
+  .overlay-global {
+    border: 10px solid gold;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+  }
+  .overlay-middle {
+    border: 3px solid gold !important;
+  }
+}
+
+.demo-firstname {
+  background-color: darkcyan;
+  font-size: large;
 }
 
 </style>
