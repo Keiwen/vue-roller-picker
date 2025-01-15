@@ -58,6 +58,7 @@ onMounted(() => {
   pickedValue.value = props.modelValue
   reloadValue()
   reloadOptions()
+  if (props.rolling) startRoll()
 })
 
 watch(() => props.modelValue, (newValue, oldValue) => {
