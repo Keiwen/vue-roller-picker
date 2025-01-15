@@ -109,6 +109,9 @@ Option 1:
 - define `rollAnimationOnUpdate` property > 0
 - set value (a random one among given options)
 
+Beware that in this case, if new value = old value, no change is detected
+and therefore no animation is triggered
+
 Option 2:
 - manually start rolling (rolling property to true)
 - set value (a random one among given options)
