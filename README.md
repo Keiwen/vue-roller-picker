@@ -1,6 +1,11 @@
 # vue-roller-picker
-[![npm](https://img.shields.io/npm/v/vue-roller-picker.svg)](https://www.npmjs.com/package/vue-roller-picker)
-[![npm](https://img.shields.io/npm/dt/vue-roller-picker.svg)](https://www.npmjs.com/package/vue-roller-picker)
+[![npm version](https://img.shields.io/npm/v/vue-roller-picker?logo=npm)](https://www.npmjs.com/package/vue-roller-picker)
+[![npm](https://img.shields.io/npm/dt/vue-roller-picker?logo=npm&color=CB3837)](https://www.npmjs.com/package/vue-roller-picker)
+[![npm downloads](https://img.shields.io/npm/unpacked-size/vue-roller-picker?logo=npm&color=CB3837)](https://www.npmjs.com/package/vue-roller-picker)
+
+![vue version](https://img.shields.io/badge/vue.js-3.x-4FC08D?logo=vue.js)
+![main language](https://img.shields.io/badge/language-Javascript-yellow)
+![github stars](https://img.shields.io/github/stars/keiwen/vue-roller-picker)
 
 Roll-designed selector component for vue3. See versions 2.X for vue2 component.
 RollerPicker can be moved:
